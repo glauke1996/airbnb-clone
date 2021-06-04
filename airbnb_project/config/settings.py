@@ -41,6 +41,10 @@ Project_Apps = [
     "users.apps.UsersConfig",
     "rooms.apps.RoomsConfig",
     "core.apps.CoreConfig",
+    "reviews.apps.ReviewsConfig",
+    "reservations.apps.ReservationsConfig",
+    "lists.apps.ListsConfig",
+    "conversations.apps.ConversationsConfig",
 ]
 
 THIRD_PARTY_APPS = [

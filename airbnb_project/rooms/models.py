@@ -19,7 +19,7 @@ class AbstractItem(core_models.AbstractTimeStampedModel):
 
     name = models.CharField(max_length=80)
 
-    class meta:
+    class Meta:
         abstract = True
 
     def __str__(self):
@@ -29,28 +29,28 @@ class AbstractItem(core_models.AbstractTimeStampedModel):
 class RoomType(AbstractItem):
     """RoomType_Model_Definition"""
 
-    class meta:
+    class Meta:
         verbose_name_plural = "Room Type"
 
 
 class Amenity(AbstractItem):
     """Amenity_Model_Definition"""
 
-    class meta:
+    class Meta:
         verbose_name_plural = "Amenities"
 
 
 class Facility(AbstractItem):
     """Facility_Model_Definition"""
 
-    class meta:
+    class Meta:
         verbose_name_plural = "Facilities"
 
 
-class HouseRULE(AbstractItem):
+class HouseRule(AbstractItem):
     """HouseRule_Moel_Definition"""
 
-    class meta:
+    class Meta:
         verbose_name_plural = "House Rule"
 
 
@@ -70,7 +70,9 @@ class Room(core_models.AbstractTimeStampedModel):
     check_in = models.TimeField()
     check_out = models.TimeField()
     instant_book = models.BooleanField(default=False)
-    host = models.ForeignKey("users.User", on_delete=models.CASCADE)
+    host = models.ForeignKey(
+        "users.User", on_delete=models.CASCADE, related_name="Room_user"
+    )
     room_type = models.ForeignKey("RoomType", on_delete=models.SET_NULL, null=True)
     amenity = models.ManyToManyField("Amenity")
     facility = models.ManyToManyField("Facility")
