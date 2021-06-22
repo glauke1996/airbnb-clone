@@ -1,4 +1,5 @@
 from django.db import models
+from django.urls import reverse
 from django_countries.fields import CountryField
 from core import models as core_models
 from users import models as user_models
@@ -7,7 +8,7 @@ from users import models as user_models
 class Photo(core_models.AbstractTimeStampedModel):
 
     caption = models.CharField(max_length=80)
-    file = models.ImageField()
+    file = models.ImageField(upload_to="room_photos")
     room = models.ForeignKey("Room", on_delete=models.CASCADE)
 
     def __str__(self):
@@ -71,12 +72,32 @@ class Room(core_models.AbstractTimeStampedModel):
     check_out = models.TimeField()
     instant_book = models.BooleanField(default=False)
     host = models.ForeignKey(
-        "users.User", on_delete=models.CASCADE, related_name="Room_user"
+        "users.User", on_delete=models.CASCADE, related_name="rooms"
     )
-    room_type = models.ForeignKey("RoomType", on_delete=models.SET_NULL, null=True)
+    room_type = models.ForeignKey(
+        "RoomType", related_name="rooms", on_delete=models.SET_NULL, null=True
+    )
     amenity = models.ManyToManyField("Amenity")
     facility = models.ManyToManyField("Facility")
     house_rule = models.ManyToManyField("HouseRULE")
 
     def __str__(self):
         return self.name
+
+    def save(self, *args, **kwagrs):
+        self.city = self.city.title()
+        super().save(*args, **kwagrs)  # call the real save method to save
+
+    def get_absolute_url(self):
+        return reverse("rooms:detail", kwargs={"pk": self.pk})
+
+    def total_rating(self):
+        all_reviews = self.reviews.all()
+        all_ratings = 0
+        if len(all_reviews) != 0:
+            for review in all_reviews:
+                all_ratings += review.rating_average()
+            all_ratings = round(all_ratings / len(all_reviews), 2)
+        else:
+            all_ratings = 0
+        return all_ratings

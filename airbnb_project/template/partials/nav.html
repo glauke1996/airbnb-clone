@@ -1,0 +1,18 @@
+<header>
+  <a href="/">Jbnb</a>
+  {% if user.is_authenticated %}
+  <ul>
+    <li><a href="{% url 'users:logout'%}">Log Out</a></li>
+    <li><a href="{{user.get_absolute_url}}">Profile</a></li>
+  </ul>
+
+  {% else %}
+
+  <ul>
+    <li><a href="{%url 'users:login'%}">Login</a></li>
+  </ul>
+  {% endif %}
+  <ul>
+    <li><a href="{%url 'users:signup'%}">Sign Up</a></li>
+  </ul>
+</header>

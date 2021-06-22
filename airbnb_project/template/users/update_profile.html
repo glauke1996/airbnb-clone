@@ -1,0 +1,8 @@
+{% extends 'base.html' %} {% block page_name %} Update {% endblock page_name %}
+{%block content %}
+<form method="post" action="{% url 'users:update-profile' %}">
+  {% csrf_token %} {{ form.as_p}}
+  <button>Update</button>
+</form>
+<a href="{% url 'users:update-password' %}">Change Password</a>
+{% endblock %}
