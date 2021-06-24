@@ -1,18 +1,13 @@
-<header>
-  <a href="/">Jbnb</a>
+<ul class="flex items-center font-medium h-full">
   {% if user.is_authenticated %}
-  <ul>
-    <li><a href="{% url 'users:logout'%}">Log Out</a></li>
-    <li><a href="{{user.get_absolute_url}}">Profile</a></li>
-  </ul>
-
+  <li class="mr-8 border-white border-b-2 hover:border-blue-400 px-2 items-center"><a href="{% url 'users:logout'%}">Log
+      Out</a></li>
+  <li class="mr-8 border-white border-b-2 hover:border-blue-400 px-2 items-center"><a
+      href="{{user.get_absolute_url}}">Profile</a></li>
   {% else %}
-
-  <ul>
-    <li><a href="{%url 'users:login'%}">Login</a></li>
-  </ul>
+  <li class="mr-8 border-white border-b-2 hover:border-blue-400 px-2 items-center"><a
+      href="{%url 'users:login'%}">Login</a></li>
+  <li class="mr-8 border-white border-b-2 hover:border-blue-400 px-2 items-center"><a href="{%url 'users:signup'%}">Sign
+      Up</a></li>
   {% endif %}
-  <ul>
-    <li><a href="{%url 'users:signup'%}">Sign Up</a></li>
-  </ul>
-</header>
+</ul>
