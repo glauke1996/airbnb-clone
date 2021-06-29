@@ -8,21 +8,21 @@ from users import models as users_model
 from users import forms
 
 
-class LoginView(View):
-    def get(self, request):
-        form = forms.LoginForm()
-        return render(request, template_name="users/login.html", context={"form": form})
+# class LoginView(View):
+#     def get(self, request):
+#         form = forms.LoginForm()
+#         return render(request, template_name="users/login.html", context={"form": form})
 
-    def post(self, request):
-        form = forms.LoginForm(request.POST)
-        if form.is_valid():
-            email = form.cleaned_data.get("email")
-            password = form.cleaned_data.get("password")
-            user = authenticate(request, username=email, password=password)
-            if user != None:
-                login(request, user)
-                return redirect(reverse("core:home"))
-        return render(request, template_name="users/login.html", context={"form": form})
+#     def post(self, request):
+#         form = forms.LoginForm(request.POST)
+#         if form.is_valid():
+#             email = form.cleaned_data.get("email")
+#             password = form.cleaned_data.get("password")
+#             user = authenticate(request, username=email, password=password)
+#             if user != None:
+#                 login(request, user)
+#                 return redirect(reverse("core:home"))
+#         return render(request, template_name="users/login.html", context={"form": form})
 
 
 def log_out(request):
@@ -30,18 +30,20 @@ def log_out(request):
     return redirect(reverse("core:home"))
 
 
-# class LoginView(FormView):
-#     form_class=forms.LoginForm
-#     success_url=reverse_lazy("core:home")  #doc-Using the Django authentication system
-#     template_name="users/login.html"
+class LoginView(FormView):
+    form_class = forms.LoginForm
+    success_url = reverse_lazy(
+        "core:home"
+    )  # doc-Using the Django authentication system
+    template_name = "users/login.html"
 
-#     def form_valid(self,form):
-#         email = form.cleaned_data.get("email")
-#         password = form.cleaned_data.get("password")
-#         user = authenticate(self.request, username=email, password=password)
-#         if user != None:
-#             login(self.request, user)
-#         return super().form_valid(form)
+    def form_valid(self, form):
+        email = form.cleaned_data.get("email")
+        password = form.cleaned_data.get("password")
+        user = authenticate(self.request, username=email, password=password)
+        if user != None:
+            login(self.request, user)
+        return super().form_valid(form)
 
 
 class SignUpView(FormView):

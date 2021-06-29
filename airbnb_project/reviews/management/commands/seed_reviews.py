@@ -10,7 +10,12 @@ class Command(BaseCommand):
     help = "This command creates fake users "
 
     def add_arguments(self, parser):
-        parser.add_argument("--number", help="How many reviews do you want to create?")
+        parser.add_argument(
+            "--number",
+            default=100,
+            type=int,
+            help="How many reviews do you want to create?",
+        )
 
     def handle(self, *args, **options):
         number = options.get("number")
@@ -27,8 +32,8 @@ class Command(BaseCommand):
                 "location": lambda x: random.randint(0, 6),
                 "check_in": lambda x: random.randint(0, 6),
                 "value": lambda x: random.randint(0, 6),
-                "users": lambda x: random.choice(users),
-                "rooms": lambda x: random.choice(rooms),
+                "user": lambda x: random.choice(users),
+                "room": lambda x: random.choice(rooms),
             },
         )
 

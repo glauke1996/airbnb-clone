@@ -1,7 +1,20 @@
 @tailwind base;
 @tailwind components;
-@tailwind utilities;
-
-.select-box{
-    transition : box-shadow 0.2s linear;
+.search-box {
+    transition: box-shadow 0.2s linear;
+  }
+.nav_link{
+    @apply mr-8 border-white border-b-2 px-3 items-center h-full flex;
+    a{
+        @apply py-10 px-3;
+    }
 }
+input,
+textarea,
+select {
+  @apply rounded-sm py-5 font-light text-lg w-full text-left border border-gray-600 px-5;
+  &:focus {
+    @apply outline-none border-green-500;
+  }
+}
+@tailwind utilities;

@@ -1,20 +1,31 @@
 {% extends 'base.html' %} {% block page_name %} Home {% endblock page_name %}
 {%block content %}
-<h3>{{now}}</h3>
-<ul> {%for room in object_list%}
-<li>
-<a href="{% url 'rooms:detail' room.pk %}">
-{{room.name}}</a></li>
-{% endfor %}
-</ul>
-<h5>
-{% if page_obj.number != 1 %}
-    <a href="?page={{page_obj.number|add:"-1"}}">Previous</a>
-{% endif %}
-page{{page_obj.number}} of {{page_obj.paginator.num_pages}}
-{% if page_obj.number != page_obj.paginator.num_pages %}
-    <a href="?page={{page_obj.number|add:"1"}}">Next</a>
-{% endif %}
-</h5>
-{% endblock %}
+<div class="container mx-auto w-3/4">
 
+    <div class="container bg-gray-800 rounded-xl h-50vh py-48 mx-auto w-full bg-center bg-cover"
+        style="background-image: url(https://images.unsplash.com/photo-1526976668912-1a811878dd37?ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&ixlib=rb-1.2.1&auto=format&fit=crop&w=1050&q=80);">
+
+    </div>
+    <div class="flex flex-wrap mt-10 -mx-32">
+
+        {%for room in object_list%}
+
+        {% include 'partials/room_card.html' with room=room %}
+
+        {% endfor %}
+
+
+    </div>
+    <div class="flex items-center justify-center">
+        {% if page_obj.number != 1 %}
+        <a href="?page={{page_obj.number|add:" -1"}}" class="text-green-500"><i class="fas fa-arrow-left fa-lg"></i></a>
+        {% endif %}
+        <span class="mx-2 font-medium text-lg">{{page_obj.number}} of {{page_obj.paginator.num_pages}}</span>
+        {% if page_obj.number != page_obj.paginator.num_pages %}
+        <a href="?page={{page_obj.number|add:" 1"}}" class="text-green-500"><i class="fas fa-arrow-right fa-lg"></i></a>
+        {% endif %}
+    </div>
+</div>
+
+
+{% endblock content %}  

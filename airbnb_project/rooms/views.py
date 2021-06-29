@@ -16,7 +16,7 @@ class HomeView(ListView):
     """Home View Definition"""
 
     model = room_model.Room
-    paginate_by = 10
+    paginate_by = 12
     context_object_name = "page"
     ordering = "created"
 

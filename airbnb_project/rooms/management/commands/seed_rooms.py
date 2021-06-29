@@ -35,7 +35,7 @@ class Command(BaseCommand):
         )
         created_PK = (
             seeder.execute()
-        )  # according to seed_documentation, returns list of inserted pks
+        )  # according to seed_documentation, get pks of seed
         created_clean = flatten(list(created_PK.values()))
         amenities = room_models.Amenity.objects.all()
         facilities = room_models.Facility.objects.all()
@@ -46,7 +46,7 @@ class Command(BaseCommand):
                 room_models.Photo.objects.create(
                     caption=seeder.faker.sentence(),
                     room=room,
-                    file="/room_photos/{random.randint(1,31)}.webp",
+                    file=f"/room_photos/{random.randint(1,31)}.webp",
                 )
             for a in amenities:
                 magic_number = random.randint(0, 15)

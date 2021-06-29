@@ -1,13 +1,15 @@
 <ul class="flex items-center font-medium h-full">
-  {% if user.is_authenticated %}
-  <li class="mr-8 border-white border-b-2 hover:border-blue-400 px-2 items-center"><a href="{% url 'users:logout'%}">Log
-      Out</a></li>
-  <li class="mr-8 border-white border-b-2 hover:border-blue-400 px-2 items-center"><a
-      href="{{user.get_absolute_url}}">Profile</a></li>
-  {% else %}
-  <li class="mr-8 border-white border-b-2 hover:border-blue-400 px-2 items-center"><a
-      href="{%url 'users:login'%}">Login</a></li>
-  <li class="mr-8 border-white border-b-2 hover:border-blue-400 px-2 items-center"><a href="{%url 'users:signup'%}">Sign
-      Up</a></li>
-  {% endif %}
+    {% if user.is_authenticated %}
+    <li class="mr-8 border-white border-b-2 hover:border-blue-400 px-3 items-center h-full flex"><a class="py-10 px-3"
+            href="{% url 'users:logout'%}">Log
+            Out</a></li>
+    <li class="mr-8 border-white border-b-2 hover:border-blue-400 px-3 items-center h-full flex"><a class="py-10 px-3"
+            href="{{user.get_absolute_url}}">Profile</a></li>
+    {% else %}
+    <li class="mr-8 border-white border-b-2 hover:border-blue-400 px-3 items-center h-full flex"><a class="py-10 px-3"
+            href="{%url 'users:login'%}">Login</a></li>
+    <li class="mr-8 border-white border-b-2 hover:border-blue-400 px-3 items-center h-full flex"><a class="py-10 px-3"
+            href="{%url 'users:signup'%}">Sign
+            Up</a></li>
+    {% endif %}
 </ul>

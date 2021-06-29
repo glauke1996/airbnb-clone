@@ -9,7 +9,7 @@ class Photo(core_models.AbstractTimeStampedModel):
 
     caption = models.CharField(max_length=80)
     file = models.ImageField(upload_to="room_photos")
-    room = models.ForeignKey("Room", on_delete=models.CASCADE)
+    room = models.ForeignKey("Room", related_name="photos", on_delete=models.CASCADE)
 
     def __str__(self):
         return self.caption
@@ -101,3 +101,8 @@ class Room(core_models.AbstractTimeStampedModel):
         else:
             all_ratings = 0
         return all_ratings
+
+    def first_photo(self):
+        (photo,) = self.photos.all()[:1]
+        print(photo.file.url)
+        return photo.file.url
