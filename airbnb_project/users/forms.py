@@ -1,4 +1,5 @@
 from django import forms
+from django.forms import fields, widgets
 from users import models as users_model
 
 
@@ -21,7 +22,9 @@ class LoginForm(forms.Form):
         email = self.cleaned_data.get("email")  # from input
         password = self.cleaned_data.get("password")
         try:
-            user = users_model.User.objects.get(username=email)  # compare
+            user = users_model.User.objects.get(
+                username=email
+            )  # compare #This is how to get an user object!!
             if user.check_password(
                 password
             ):  # check_password compare each encrypted password.
@@ -77,15 +80,76 @@ class SignUpForm(forms.ModelForm):
             "last_name",
             "email",
         )
+        widgets = {
+            "first_name": forms.TextInput(attrs={"placeholder": "First_name"}),
+            "last_name": forms.TextInput(attrs={"placeholder": "Last_name"}),
+            "email": forms.TextInput(attrs={"placeholder": "Email"}),
+        }
 
-    password = forms.CharField(widget=forms.PasswordInput)
-    password1 = forms.CharField(widget=forms.PasswordInput, label="Confirm Password")
+    password = forms.CharField(
+        widget=forms.PasswordInput(attrs={"placeholder": "Password"})
+    )
+    password1 = forms.CharField(
+        widget=forms.PasswordInput(attrs={"placeholder": "Password_confirm"}),
+        label="Confirm Password",
+    )
 
     def save(self, *args, **kwargs):
         user = super().save(commit=False)  # create object
-        print(self.cleaned_data)
+        # print(self.cleaned_data)
         email = self.cleaned_data.get("email")
         password = self.cleaned_data.get("password")
         user.username = email
         user.set_password(password)
         user.save()
+
+
+class UpdateForm(forms.ModelForm):
+    class Meta:
+        model = users_model.User
+        fields = (
+            "first_name",
+            "last_name",
+            "avatar",
+            "gender",
+            "bio",
+            "birthdate",
+            "language",
+            "currency",
+            # "email",
+        )
+        widgets = {
+            "birthdate": forms.TextInput(attrs={"placeholder": "0000-00-00"}),
+            "email": forms.TextInput(attrs={"placeholder": "Existing Email"}),
+        }
+
+    # New_email = forms.CharField(
+    #     widget=forms.TextInput(attrs={"placeholder": "New Email"})
+    # )
+
+
+#     def save(self):
+#         first_name = self.cleaned_data.get("first_name")
+#         last_name = self.cleaned_data.get("last_name")
+#         email = self.cleaned_data.get("email")
+#         avatar = self.cleaned_data.get("avatar")
+#         gender = self.cleaned_data.get("gender")
+#         bio = self.cleaned_data.get("bio")
+#         birthdate = self.cleaned_data.get("birthdate")
+#         language = self.cleaned_data.get("language")
+#         currency = self.cleaned_data.get("currency")
+#         New_email = self.cleaned_data.get("New_email")
+
+#         user = users_model.User.objects.get(username=email,first_name=first_name)
+#         user.first_name = first_name
+#         user.last_name = last_name
+#         user.avatar = avatar
+#         user.gender = gender
+#         user.bio = bio
+#         user.birthdate = birthdate
+#         user.language = language
+#         user.currency = currency
+#         print(self.cleaned_data)
+#         if New_email != None:
+#             user.username = New_email
+#         user.save()

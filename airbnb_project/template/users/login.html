@@ -1,12 +1,12 @@
 {% extends 'base.html' %} {% block page_name %} login {% endblock page_name %}
 {%block content %}
-<div class="container flex flex-col mx-auto w-max items-center p-6 mb-20 lg:w-5/12 md:w-1/2 xl:w-1/4 border ">
+<div class="container flex flex-col mx-auto items-center p-6 mb-20 lg:w-5/12 md:w-1/2 xl:w-1/4 border ">
   <form method="post" action="{% url 'users:login' %}" class="w-full">
     {% csrf_token %}
-    <div class="text-left rounded-sm py-3 font-light text-lg mb-3 w-full px-3 focus: outline-none focus:border-green-500 border border-gray-600">
+    <div class="text-left rounded-sm font-light text-lg mb-3 w-full focus: outline-none focus:border-green-500 border border-gray-600">
       {{form.email}}
     </div>
-    <div class="text-left rounded-sm py-3 font-light text-lg mb-3 w-full px-3 focus: outline-none focus:border-green-500 border border-gray-600">
+    <div class="text-left rounded-sm font-light text-lg mb-3 w-full focus: outline-none focus:border-green-500 border border-gray-600">
       {{form.password}}
     </div>
     <button class="text-center rounded-sm py-3 font-light text-lg bg-red-500 w-full text-white mt-3">Login</button>

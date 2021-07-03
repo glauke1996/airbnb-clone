@@ -23,14 +23,14 @@ class Command(BaseCommand):
             room_models.Room,
             int(number),
             {
-                "guests": lambda x: random.randint(0, 5),
+                "guests": lambda x: random.randint(1, 5),
                 "name": lambda x: seeder.faker.address(),
                 "host": lambda x: random.choice(all_user),
                 "room_type": lambda x: random.choice(room_types),
-                "price": lambda x: random.randint(0, 300),
-                "beds": lambda x: random.randint(0, 5),
-                "bedrooms": lambda x: random.randint(0, 3),
-                "bath": lambda x: random.randint(0, 3),
+                "price": lambda x: random.randint(10, 300),
+                "beds": lambda x: random.randint(1, 5),
+                "bedrooms": lambda x: random.randint(1, 3),
+                "bath": lambda x: random.randint(1, 3),
             },
         )
         created_PK = (

@@ -1,7 +1,24 @@
 {% extends 'base.html' %} {% block page_name %} Sign Up {% endblock page_name %}
 {%block content %}
-<form method="post" action="{% url 'users:signup' %}">
-  {% csrf_token %} {{ form.as_p}}
-  <button>Sign Up</button>
-</form>
+<div class="container border items-center flex flex-col mx-auto w-max lg:5/12 md:1/2 xl:1/4 p-10">
+  <form method="post" action="{% url 'users:signup' %}" class="w-full">
+    {% csrf_token %} 
+    <div class="text-left rounded-sm font-light text-lg mb-3 w-full focus: outline-none focus:border-green-500 border border-gray-600">
+        {{form.first_name}}
+    </div>
+    <div class="text-left rounded-sm font-light text-lg mb-3 w-full focus: outline-none focus:border-green-500 border border-gray-600">
+        {{form.last_name}}
+    </div>
+    <div class="text-left rounded-sm font-light text-lg mb-3 w-full focus: outline-none focus:border-green-500 border border-gray-600">
+        {{form.email}}
+    </div>
+    <div class="text-left rounded-sm font-light text-lg mb-3 w-full focus: outline-none focus:border-green-500 border border-gray-600">
+        {{form.password}}
+    </div>
+    <div class="text-left rounded-sm font-light text-lg mb-3 w-full focus: outline-none focus:border-green-500 border border-gray-600">
+        {{form.password1}}
+    </div>
+    <button class="bg-red-500 text-white font-medium text-center border hover:to-gray-600 w-full rounded-sm h-16">Sign Up</button>
+  </form>
+</div>
 {% endblock %}

@@ -104,5 +104,8 @@ class Room(core_models.AbstractTimeStampedModel):
 
     def first_photo(self):
         (photo,) = self.photos.all()[:1]
-        print(photo.file.url)
         return photo.file.url
+
+    def get_next_four_photos(self):
+        photos = self.photos.all()[1:5]
+        return photos
