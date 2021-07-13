@@ -1,4 +1,5 @@
 from django import forms
+from django_countries import fields
 from . import models as room_model
 
 
@@ -24,3 +25,19 @@ class CreateRoomForm(forms.ModelForm):
             "facility",
             "house_rule",
         )
+
+    def save(self, *args, **kwargs):
+        room = super().save(commit=False)
+        return room
+
+
+class CreatePhotoForm(forms.ModelForm):
+    class Meta:
+        model = room_model.Photo
+        fields = ("caption", "file")
+
+    def save(self, pk, *args, **kwargs):
+        photo = super().save(commit=False)
+        room = room_model.Room.objects.get(pk=pk)
+        photo.room = room
+        photo.save()

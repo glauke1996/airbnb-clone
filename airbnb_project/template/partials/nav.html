@@ -1,6 +1,21 @@
 <ul class="flex items-center font-medium h-full">
     {% if user.is_authenticated %}
     <li class="mr-8 border-white border-b-2 hover:border-blue-400 px-3 items-center h-full flex"><a class="py-10 px-3"
+            href="{% url 'users:switch_hosting'%}">
+                {% if request.session.is_hosting %}
+                        Stop hosting
+                {% else %}
+                        Start hosting
+                {% endif %}
+            </a></li>
+        
+    
+        {% if request.session.is_hosting %}
+            <li class="mr-8 border-white border-b-2 hover:border-blue-400 px-3 items-center h-full flex"><a href="{% url 'rooms:create_room' %}" class="py-10 px-3">
+                Upload room
+            </a></li>
+        {% endif %}
+    <li class="mr-8 border-white border-b-2 hover:border-blue-400 px-3 items-center h-full flex"><a class="py-10 px-3"
             href="{% url 'users:logout'%}">Log
             Out</a></li>
     <li class="mr-8 border-white border-b-2 hover:border-blue-400 px-3 items-center h-full flex"><a class="py-10 px-3"

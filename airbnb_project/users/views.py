@@ -4,6 +4,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.views import PasswordChangeView
 from django.urls import reverse_lazy
+from django.contrib.auth.decorators import login_required
 from django.views import View
 from users import models as users_model
 from users import forms, mixins
@@ -135,3 +136,12 @@ class UpdatePasswordView(PasswordChangeView):
             "placeholder": "Confirm_new_password"
         }
         return form
+
+
+@login_required
+def switch_hosting(request):
+    try:
+        del request.session["is_hosting"]
+    except KeyError:
+        request.session["is_hosting"] = True
+    return redirect(reverse("core:home"))
