@@ -11,6 +11,7 @@ from django.contrib.messages.views import SuccessMessageMixin
 from django.views.generic.edit import CreateView
 from django_countries import countries
 from rooms import forms, models as room_model
+from reservations import models as res_model
 from rooms import forms as room_form
 from users import mixins
 from users.mixins import LoggedInOnlyView
@@ -39,6 +40,10 @@ class HomeView(ListView):
 def room_detail(request, pk):
     try:
         room = room_model.Room.objects.get(pk=pk)
+        reservations = res_model.Reservation.objects.filter(room=room)
+        for reservation in reservations:
+            if reservation.is_finished:
+                reservation.booked_day.all().delete()
         return render(request, "rooms/detail.html", context={"room": room})
     except room_model.Room.DoesNotExist:
         # return redirect(reverse("core:home"))  # reverse returns url
@@ -91,7 +96,6 @@ class UploadRoomView(FormView, mixins.LoggedInOnlyView):
         room.host = self.request.user
         room.save()
         form.save_m2m()
-        messages.success(self.request, "Room Uploaded")
         return redirect(reverse("rooms:detail", kwargs={"pk": room.pk}))
 
 

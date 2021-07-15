@@ -45,6 +45,7 @@ class Reservation(core_models.AbstractTimeStampedModel):
     is_finished.boolean = True
 
     def save(self, *args, **kwargs):
+        print(self)
         if self.pk == None:
             start = self.check_in  # datetime eg)00-00-00
             end = self.check_out
@@ -54,10 +55,11 @@ class Reservation(core_models.AbstractTimeStampedModel):
             ).exists()
             if not existing_booked_day:
                 super().save(*args, **kwargs)  # Maybe pk is given here
-                for i in range(difference.days + 1):
+                for i in range(difference.days):
                     day = start + datetime.timedelta(days=i)
                     BookedDay.objects.create(day=day, reservation=self)
                 return
+
         return super().save(*args, **kwargs)
 
 

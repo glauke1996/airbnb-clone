@@ -38,16 +38,18 @@ class Calendar(calendar.Calendar):
                 month = now.month
                 if self.month == month and today >= day:
                     past = True
-                new_day = Day(day, past)
+                new_day = Day(day, past, self.month, self.year)
                 days.append(new_day)
 
         return days
 
 
 class Day:
-    def __init__(self, number, past):
+    def __init__(self, number, past, month, year):
         self.number = number
         self.past = past  # boolean
+        self.month = month
+        self.year = year
 
     def __str__(self):
         return str(self.number)
