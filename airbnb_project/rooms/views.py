@@ -42,7 +42,7 @@ def room_detail(request, pk):
         room = room_model.Room.objects.get(pk=pk)
         reservations = res_model.Reservation.objects.filter(room=room)
         for reservation in reservations:
-            if reservation.is_finished:
+            if reservation.is_finished():
                 reservation.booked_day.all().delete()
         return render(request, "rooms/detail.html", context={"room": room})
     except room_model.Room.DoesNotExist:

@@ -40,12 +40,10 @@ class Reservation(core_models.AbstractTimeStampedModel):
 
     def is_finished(self):
         now = timezone.now().date()
-        return now > self.check_out
-
-    is_finished.boolean = True
+        is_finished = now > self.check_out
+        return is_finished
 
     def save(self, *args, **kwargs):
-        print(self)
         if self.pk == None:
             start = self.check_in  # datetime eg)00-00-00
             end = self.check_out
