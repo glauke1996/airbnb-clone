@@ -149,3 +149,4 @@ MEDIA_ROOT = BASE_DIR / "uploads"
 MEDIA_URL = "/media/"
 
 LOGIN_URL = "users/login"
+LOCALE_PATHS = (BASE_DIR / "uploads",)

@@ -38,7 +38,8 @@ class User(AbstractUser):  # inheritence
     gender = models.CharField(choices=GENDER_CHOICES, max_length=10, blank=True)
     bio = models.TextField(default="", blank=True)
     birthdate = models.DateField(
-        blank=True, null=True
+        blank=True,
+        null=True,
     )  # I think this was the worst decision I've ever done
     language = models.CharField(
         choices=LANGUAGE_CHOICES, max_length=2, blank=True, default=LANGUAGE_KOR

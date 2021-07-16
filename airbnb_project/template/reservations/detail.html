@@ -41,7 +41,7 @@
                     {% endif %}
                 {% elif reservation.status == 'confirmed' and reservation.is_finished %}
                     <span class="font-semibold text-2xl flex justify-center mb-10">Write your review</span>
-                    <form action="" method="POST" class="w-1/2 mx-auto" >
+                    <form action="{% url 'reviews:create' reservation.room.pk %}" method="POST" class="w-1/2 mx-auto" >
                         {% csrf_token %}
                         {{form}}
                         <button class="rounded-md bg-red-500 p-3 mt-5 text-white text-center">Submit</button>
