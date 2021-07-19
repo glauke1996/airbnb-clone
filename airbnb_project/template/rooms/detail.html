@@ -1,5 +1,5 @@
 {% extends 'base.html' %}
-{% load is_booked %}
+{% load is_booked on_favs %}
 {% block page_name %} Home {% endblock page_name %}
 {%block content %}
   <div class="-mt-5 container max-w-full h-75vh flex mb-20">
@@ -15,8 +15,15 @@
     <div class="w-1/2">
       <div class="justify-between flex">
         <div>
-          <h4 class="font-medium text-3xl">{{room.name}}</h4>
-          <span class="text-gray-700 font-light">{{room.city}}</span>
+          <div class="flex">
+            <h4 class="font-medium text-3xl">{{room.name}}</h4>
+          </div>
+          {% on_favs room as on_favs_boolean %}
+          {% if on_favs_boolean %}
+            <span class="text-gray-700 font-light">{{room.city}}<a href="{% url 'lists:fav' room.pk %}" ><i class="fas fa-heart ml-2 mt-2 text-red-500 text-xl"></i></a></span>
+          {% else %}
+            <span class="text-gray-700 font-light">{{room.city}}<a href="{% url 'lists:fav' room.pk %}" ><i class="far fa-heart ml-2 mt-2 text-xl animate-bounce text-red-500 fill-current"></i></a></span>
+          {% endif %}
 
         </div>
         <div>
@@ -30,7 +37,7 @@
               <div class="h-20 w-20 bg-gray-500 rounded-full text-white items-center justify-center flex">    
                 <span class="text-2xl">{{user_obj.first_name|first}}</span>  
               </div>
-              <span class="text-gray-500 flex justify-center">{{room.host.first_name}}</span>
+              <span class="text-gray-500 flex justify-center test">{{room.host.first_name}}</span>
             </a>
           {% endif %}
         

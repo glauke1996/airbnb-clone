@@ -6,7 +6,7 @@ from core import models as core_models
 
 class List(core_models.AbstractTimeStampedModel):
     name = models.CharField(max_length=80)
-    user = models.ForeignKey(
+    user = models.OneToOneField(
         "users.User", on_delete=models.CASCADE, related_name="lists"
     )
     rooms = models.ManyToManyField("rooms.Room", blank=True, related_name="lists")

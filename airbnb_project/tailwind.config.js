@@ -10,13 +10,16 @@ module.exports = {
         "100vh": "100vh",
 
       },
+      fill: theme => ({
+        'red': theme('colors.red.500'),
+      }),
       borderRadius: {
         xl: "1.5rem"
       }
     },
   },
   variants: {
-    extend: {},
+    extend: { fill: ['hover', 'focus'], },
   },
   plugins: [],
 }

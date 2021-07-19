@@ -1,0 +1,14 @@
+
+:root {
+    --pink-light: #ff7eb4;
+    --pink: #ff2581;
+  }
+
+.heart{
+    font-size:xx-large;
+    color:red;
+}
+
+.heart:hover{
+    fill: var(--pink);
+}
