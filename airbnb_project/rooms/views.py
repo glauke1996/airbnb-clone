@@ -43,7 +43,7 @@ def room_detail(request, pk):
         reservations = res_model.Reservation.objects.filter(room=room)
         for reservation in reservations:
             if reservation.is_finished():
-                reservation.booked_day.all().delete()
+                reservation.delete()
         return render(request, "rooms/detail.html", context={"room": room})
     except room_model.Room.DoesNotExist:
         # return redirect(reverse("core:home"))  # reverse returns url
@@ -121,22 +121,51 @@ def Search(request):
     room_type = int(request.GET.get("room_type", 0))
     room_types = room_model.RoomType.objects.all()
     country = request.GET.get("country", "KR")
-    print(country)
+    price = int(request.GET.get("price", 0))
+    guests = int(request.GET.get("guests", 0))
+    beds = int(request.GET.get("beds", 0))
+    bedrooms = int(request.GET.get("bedrooms", 0))
+    bath = int(request.GET.get("bath", 0))
+
+    amenities = room_model.Amenity.objects.all()
+    facilities = room_model.Facility.objects.all()
     form = {
         "city": city,
         "s_room_type": room_type,  # from database
         "s_country": country,
+        "price": price,
+        "guests": guests,
+        "beds": beds,
+        "bedrooms": bedrooms,
+        "bath": bath,
     }
-
     choices = {
         "countries": countries,
         "room_types": room_types,
+        "amenities": amenities,
+        "facilities": facilities,
     }
-
+    filter_args = {}
+    if city != "anywhere":
+        filter_args["city__startswith"] = city
+    filter_args["country"] = country
+    if room_type != 0:
+        filter_args["room_type__pk"] = room_type
+    if price != 0:
+        filter_args["price__lte"] = price  # refer to lookup session on documentation
+    if guests != 0:
+        filter_args["guests__gte"] = guests
+    if beds != 0:
+        filter_args["beds__gte"] = beds
+    if bedrooms != 0:
+        filter_args["bedrooms__gte"] = bedrooms
+    if bath != 0:
+        filter_args["bath__gte"] = bath
+    rooms = room_model.Room.objects.filter(**filter_args)
     return render(
         request,
         template_name="rooms/search.html",
-        context={**form, **choices},
+        context={**form, **choices, "rooms": rooms},
     )
 
 

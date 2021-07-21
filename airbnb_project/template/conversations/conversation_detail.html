@@ -23,12 +23,12 @@
                 {% endfor %}
             </div>
     </div>
-    <div class="border w-4/6 mx-auto flex flex-col">
+    <div class="border w-4/6 mx-auto flex flex-col max-h-50vh overflow-y-auto">
         {% for message in conversation.messages.all %}
 
             <div class="p-5 flex flex-col {% if message.user.pk == user.pk %}self-end{%else%} self-start{% endif %}">
-                <span>{{message.user}}</span>
-                <div class="rounded-md border-2 p-3 text-center bg-gray-300">{{message}}</div>
+                <span class="{%if message.user.pk == user.pk%}self-end {%endif%}">{{message.user}}</span>
+                <div class="rounded-md border-2 p-3 text-center {%if message.user.pk != user.pk%}bg-white{%else%}bg-yellow-200{%endif%}">{{message}}</div>
             </div>
         {% endfor %}
     </div>

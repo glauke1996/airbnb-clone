@@ -42,3 +42,16 @@ class ConversationDetailView(View):
             "conversations/conversation_detail.html",
             {"conversation": conversation, "form": form},
         )
+
+    def post(self, *args, **kwargs):
+        message = self.request.POST.get("message", None)
+        pk = kwargs.get("pk")
+        try:
+            conversation = models.Conversation.objects.get(pk=pk)
+        except models.Conversation.DoesNotExist:
+            raise Http404
+        if message != None:
+            models.Message.objects.create(
+                text=message, user=self.request.user, conversation=conversation
+            )
+        return redirect(reverse("conversations:detail", kwargs={"pk": pk}))
