@@ -1,0 +1,44 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div>
+    <div class=" mx-auto w-1/4 px-10">
+        <span class="text-center w-full block text-lg font-medium">Conversation between:</span>
+            <div class="flex justify-between mt-5 items-center">
+                {% for user in conversation.participants.all  %}
+                    <div class="flex flex-col items-center">
+                        {% if user_obj.avatar %}
+                            <div class="h-20 w-20 bg-gray-500 rounded-full flex bg-cover" style="background-image: url({{user_obj.avatar.url}})"></div>
+                        {% else %}
+                            <div class="h-20 w-20 bg-gray-500 rounded-full text-white items-center justify-center flex">    
+                                <span class="text-2xl">{{user_obj.first_name|first}}</span>  
+                            </div>
+                            <span>{{user_obj.first_name}}</span>
+                        {% endif %}
+                            <span class="mt-2 text-gray-500">{{user.first_name}}</span>
+                    </div>
+                    {% if forloop.first %}
+                        <span class="font-medium text-2xl">&</span>
+                    {% endif %}
+                {% endfor %}
+            </div>
+    </div>
+    <div class="border w-4/6 mx-auto flex flex-col">
+        {% for message in conversation.messages.all %}
+
+            <div class="p-5 flex flex-col {% if message.user.pk == user.pk %}self-end{%else%} self-start{% endif %}">
+                <span>{{message.user}}</span>
+                <div class="rounded-md border-2 p-3 text-center bg-gray-300">{{message}}</div>
+            </div>
+        {% endfor %}
+    </div>
+        <form class="w-4/6 mx-auto mt-5" method="POST">
+            {% csrf_token %}
+            <div class="flex">
+                {{form.message}}
+                <button class="container rounded-md bg-yellow-400 w-1/12">Send</button>
+            </div>
+        </form>
+</div>
+{% endblock content %}
+

@@ -27,7 +27,9 @@ class Message(core_models.AbstractTimeStampedModel):
     user = models.ForeignKey(
         "users.User", on_delete=models.CASCADE, related_name="messages"
     )
-    conversation = models.ForeignKey(Conversation, on_delete=models.CASCADE)
+    conversation = models.ForeignKey(
+        Conversation, on_delete=models.CASCADE, related_name="messages"
+    )
 
     def __str__(self):
-        return f"{self.user} says : {self.text}"
+        return str(self.text)

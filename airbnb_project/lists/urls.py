@@ -4,5 +4,6 @@ from . import views
 app_name = "lists"
 
 urlpatterns = [
-    path("add/<int:room_pk>/", views.save_room, name="fav"),
+    path("add/<int:room_pk>/", views.toggle_room, name="fav"),
+    path("favs/", views.SeeFavsView.as_view(), name="see_fav"),
 ]

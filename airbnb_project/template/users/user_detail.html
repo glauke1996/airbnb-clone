@@ -20,7 +20,11 @@
         </span> {{user_obj.bio}}
         <button class="bg-red-500 text-white font-medium text-center w-4/5 mt-5 rounded-sm"><a href="{% url 'users:update-profile' %}">Edit profile</a></button>
     </div>
-        <div class="flex justify-center"><button class="border-b-2 mb-10 -mt-10 text-black text-2xl font-medium text-center p-5 hover:shadow-md rounded-md"><a href="{% url 'reservations:list' %}">My reservation</a></button></div>
+    <div class="flex justify-center">
+        <div class="flex justify-center"><button class="border-b-2 mb-10 -mt-10 mr-5 text-black text-xl font-medium text-center p-5 hover:shadow-md rounded-md"><a href="{% url 'reservations:list' %}">My Reservation</a></button></div>
+        <div class="flex justify-center"><button class="border-b-2 mb-10 -mt-10 text-black text-xl font-medium text-center p-5 hover:shadow-md rounded-md"><a href="{% url 'lists:see_fav' %}">My List</a></button></div>
+    </div>    
+        
 
 {% if user_obj.rooms.all != None %}
     <div class="text-center mb-10 text-2xl font-bold">{{user_obj.first_name}}'s Room</div>

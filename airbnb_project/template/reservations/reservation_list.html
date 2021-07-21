@@ -22,8 +22,10 @@
                         {% endif %}
                     </div>
                     <span class="text-black w-full truncate">{{reservation.room.name}}</span>
+                    <span class="{% if reservation.status == 'pending' %} text-yellow-500{% elif reservation.status == 'confirm' %} text-green-500 {%else%} text-red-500 {% endif%} ">{{reservation.status}}</span>
                 </a>
             </div>
+            
         {% endif %}
     {% endfor %}
 </div>

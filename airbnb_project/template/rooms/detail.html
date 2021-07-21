@@ -20,9 +20,9 @@
           </div>
           {% on_favs room as on_favs_boolean %}
           {% if on_favs_boolean %}
-            <span class="text-gray-700 font-light">{{room.city}}<a href="{% url 'lists:fav' room.pk %}" ><i class="fas fa-heart ml-2 mt-2 text-red-500 text-xl"></i></a></span>
+            <span class="text-gray-700 font-light">{{room.city}}<a href="{% url 'lists:fav' room.pk %}?action=remove" ><i class="fas fa-heart ml-2 mt-2 text-red-500 text-xl"></i></a></span>
           {% else %}
-            <span class="text-gray-700 font-light">{{room.city}}<a href="{% url 'lists:fav' room.pk %}" ><i class="far fa-heart ml-2 mt-2 text-xl animate-bounce text-red-500 fill-current"></i></a></span>
+            <span class="text-gray-700 font-light">{{room.city}}<a href="{% url 'lists:fav' room.pk %}?action=add" ><i class="far fa-heart ml-2 mt-2 text-xl animate-bounce text-red-500 fill-current"></i></a></span>
           {% endif %}
 
         </div>
