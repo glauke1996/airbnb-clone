@@ -1,4 +1,4 @@
-#!c:\users\glauk\onedrive\¹®¼­\github\airbnb-clone\airbnb_project\bnb\scripts\python.exe
+#!c:\users\glauk\appdata\local\programs\python\python39\python.exe
 # EASY-INSTALL-ENTRY-SCRIPT: 'future==0.16.0','console_scripts','futurize'
 import re
 import sys

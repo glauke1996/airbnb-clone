@@ -1,4 +1,4 @@
-#!c:\users\glauk\onedrive\문서\github\airbnb-clone\airbnb_project\bnb\scripts\python.exe
+#!c:\users\glauk\appdata\local\programs\python\python39\python.exe
 
 import sys
 import json
