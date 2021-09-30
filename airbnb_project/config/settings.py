@@ -23,7 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = "django-insecure-j-ujflp6_ree$!+%h+=a*-kr8)8bdy4h@5f=z($lc^qkbu)zd)"
 
 # SECURITY WARNING: don't run with debug turned on in production!
-DEBUG = True
+
+DEBUG = False
+# DEBUG = os.environ.get("DEBUG")
 
 ALLOWED_HOSTS = []
 
@@ -89,13 +91,25 @@ WSGI_APPLICATION = "config.wsgi.application"
 
 # Database
 # https://docs.djangoproject.com/en/3.2/ref/settings/#databases
+if DEBUG:
 
-DATABASES = {
-    "default": {
-        "ENGINE": "django.db.backends.sqlite3",
-        "NAME": BASE_DIR / "db.sqlite3",
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.sqlite3",
+            "NAME": BASE_DIR / "db.sqlite3",
+        }
     }
-}
+else:
+    DATABASES = {
+        "default": {
+            "ENGINE": "django.db.backends.postgresql",
+            "HOST": "airbnb-clone.czf7otl64clv.ap-northeast-2.rds.amazonaws.com",
+            "NAME": "airbnb-clone",
+            "USER": "postgresql",
+            "PASSWORD": "wls85246",
+            "PORT": "5432",
+        }
+    }
 
 
 # Password validation
