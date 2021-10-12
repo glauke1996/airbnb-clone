@@ -24,7 +24,7 @@ SECRET_KEY = "django-insecure-j-ujflp6_ree$!+%h+=a*-kr8)8bdy4h@5f=z($lc^qkbu)zd)
 
 # SECURITY WARNING: don't run with debug turned on in production!
 
-DEBUG = False
+DEBUG = True
 # DEBUG = os.environ.get("DEBUG")
 
 ALLOWED_HOSTS = []
@@ -86,7 +86,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = "config.wsgi:application"
+WSGI_APPLICATION = "config.wsgi.application"
 
 
 # Database
