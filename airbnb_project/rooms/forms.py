@@ -69,3 +69,4 @@ class SearchForm(forms.Form):
         queryset=room_model.Facility.objects.all(),
         widget=forms.CheckboxSelectMultiple,
     )
+
